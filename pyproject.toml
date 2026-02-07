@@ -1,0 +1,11 @@
+[project]
+name = "bosch-applied-cv-assignment"
+version = "0.1.0"
+description = "BDD100K dataset analysis, object detection model training, and model evaluation pipeline for the Bosch Applied Computer Vision assignment (Anik Ghosh)"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ijson>=3.4.0.post0",
+    "ruff>=0.15.0",
+    "streamlit>=1.54.0",
+]

@@ -1,1 +1,1 @@
-# bosch-applied-cv-assignment
+# My submission for Bosch's Applied CV Coding Assignment

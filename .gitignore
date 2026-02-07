@@ -135,7 +135,11 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+# While I am aware that .env files are supposed to contain
+# sensitive information and should never be pushed to the
+# remote repository, I felt the need to include the .env
+# file in this case for ease of installation.
+# .env
 .envrc
 .venv
 env/

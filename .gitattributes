@@ -1,0 +1,17 @@
+# I have previously encountered issues due to inconsistent line endings
+# when developing Dockerized applications on Windows. This file forces LF.
+
+# Set the default behavior to aid in line ending consistency
+* text=auto
+
+# Force shell scripts to always use LF (crucial for Docker entrypoints)
+*.sh text eol=lf
+
+# Force Python files and configuration to use LF
+*.py text eol=lf
+*.toml text eol=lf
+Dockerfile text eol=lf
+
+# Keep binary files as-is
+*.png binary
+*.jpg binary

@@ -1,0 +1,23 @@
+# git
+.git
+.gitignore
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# notebooks
+notebooks/
+
+# datasets (very important)
+
+# outputs
+
+# local env
+.env
+.venv
+
+# misc
+.DS_Store

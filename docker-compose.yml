@@ -1,0 +1,12 @@
+services:
+  data-analysis:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: applied-cv-assignment-anikghosh
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+      - ${BDD_DATASET_PATH}:/data:ro
+    restart: unless-stopped
