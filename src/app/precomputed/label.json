@@ -1,0 +1,17 @@
+{
+    "category": "traffic light",
+    "attributes": {
+    "occluded": false,
+    "truncated": false,
+    "trafficLightColor": "green"
+    },
+    "manualShape": true,
+    "manualAttributes": true,
+    "box2d": {
+    "x1": 1156.978645,
+    "y1": 136.637417,
+    "x2": 1191.50796,
+    "y2": 210.875443
+    },
+    "id": 1
+}

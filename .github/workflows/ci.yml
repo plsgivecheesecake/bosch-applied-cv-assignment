@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  lint-and-format:
-    name: Lint & Format (Ruff)
+  quality-assurance:
+    name: Code Quality Check
     runs-on: ubuntu-latest
 
     steps:
@@ -19,11 +19,14 @@ jobs:
           python-version: "3.13"
           cache: "pip"
 
-      - name: Install Ruff
-        run: pip install ruff
+      - name: Install Tools
+        run: pip install ruff interrogate
 
-      - name: Lint
+      - name: Lint (Ruff)
         run: ruff check .
 
-      - name: Format check
+      - name: Format check (Ruff)
         run: ruff format --check .
+
+      - name: Docstrings check (Interrogate)
+        run: interrogate -v -f 100 .

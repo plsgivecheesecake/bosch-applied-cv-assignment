@@ -26,4 +26,4 @@ VOLUME ["/data"]
 EXPOSE 8501
 
 # Run the streamlit application
-CMD ["streamlit", "run", "src/app/Hello.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "src/app/Process_Dataset.py", "--server.port=8501", "--server.address=0.0.0.0"]
