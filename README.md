@@ -17,6 +17,7 @@ Please make sure to click the "Process Dataset" button before proceeding to the 
 For ease of reading, I have divided task 1 into 5 pages. last two pages are for task 2 and task 3.
 
 ## Task 1 : Dataset Analysis
+Please run the streamlit dashboard application! There are several interactive plots, which I'm sure you will appreciate!
 
 ## Task 2.1: Model Selection
 
@@ -46,4 +47,79 @@ Despite its advantages, there are specific limitations to consider for deploymen
 
 ## Task 2.2: Model Training
 
-Please refer to the notebook called "Task2_Model_Training.ipynb" in the "notebooks" folder at the root of this repository. 
+Please refer to the notebook called "Task2_Model_Training.ipynb" in the "notebooks" folder at the root of this repository.
+
+## Task 3: Model Evaluation
+
+Please refer to the notebook called "Task3_Evaluation.ipynb" in the "notebooks" folder in the root of this repository for the code I wrote to generate these metrics and visualizations.
+
+### Quantitative Analysis
+
+The following analysis evaluates the model's detection capabilities across different object scales and categories after training for 6 epochs
+![mAP All](readme_images/map_plot.png)
+
+### Performance by Object Size
+The model demonstrates a strong correlation between object size and detection accuracy. For large objects, the model performs exceptionally well, achieving a Peak F1 score of 0.91 and an mAP@50 of 0.55. This indicates that when objects are close and distinct, the model is highly reliable.
+For small objects, there is a critical performance drop-off (Area < $32^2$ px). The mAP@50 is only 0.02, and the mAP@50:95 is 0.05. This confirms the challenges identified in the dataset analysis task, that small, distant objects (like traffic lights or far-away vehicles) are the primary failure mode for this model configuration.
+
+| Metric | All | Small | Medium | Large |
+| :--- | :--- | :--- | :--- | :--- |
+| mAP @ 50 | 0.43 | 0.02 | 0.50 | 0.55 |
+| mAP @ 50:95 | 0.23 | 0.05 | 0.25 | 0.61 |
+| Peak F1 | 0.61 | 0.40 | 0.70 | 0.91 |
+
+### Class-Wise Performance
+The model shows distinct biases towards classes that are more frequent or visually distinct in the dataset.
+
+Cars are the best-detected class (AP@50: 0.68), likely due to their high frequency and consistent shape.
+
+Large Vehicles (Bus and Truck) also see strong performance, with AP@50 scores above 0.54.
+
+Vulnerable Road Users, i.e., Categories like Rider, Motor, and Bike hover around 0.35 - 0.36 AP. These classes are often thinner (high aspect ratio anomalies) and harder to resolve than boxy vehicles.
+
+Edge Cases: Trains have a near-zero performance (AP@50: 0.01). This primarily indicates a lack of training samples (class imbalance) rather than a fundamental inability to detect the object type.
+
+| Category | AP @ 50 | Peak F1 | Conf. Threshold |
+| :--- | :--- | :--- | :--- |
+| Car | 0.68 | 0.67 | 0.4 |
+| Bus | 0.55 | 0.56 | 0.4 |
+| Truck | 0.54 | 0.55 | 0.4 |
+| Traffic Sign | 0.53 | 0.57 | 0.3 |
+| Traffic Light| 0.47 | 0.54 | 0.4 |
+| Person | 0.44 | 0.47 | 0.3 |
+| Motor | 0.36 | 0.42 | 0.3 |
+| Bike | 0.35 | 0.40 | 0.3 |
+| Rider | 0.34 | 0.42 | 0.3 |
+| Train | 0.01 | 0.06 | 0.1 |
+
+As suspected in the data analysis section, the model also performs slightly worse at nighttime, possibly due to lighting inconsistencies and environmental effects. However, the balance of daytime and nighttime images has kept the model from performing too poorly at nighttime.
+
+![mAP Day](readme_images/day_performance.png)
+![mAP Night](readme_images/night_performance.png)
+
+
+Our first insights from the metrics are confirmed by the confusion matrix and PR curve
+![Confusion](readme_images/confusion.png)
+![PR Curve](readme_images/prcurve.png)
+
+### Qualitative Analysis
+         
+Let us visualize some images with ground truth labels and predictions side by side to see how the model actually did.
+
+The fine-tuned model is rather good at detecting even occluded cars in a dense setting with cars
+![Dense Cars](readme_images/dense_cars.png)
+
+But it misses several detections regularly, especially far away objects
+![General dense region](readme_images/dense_region.png)
+
+In this dense person setting it has performed reasonably well
+![Dense person region](readme_images/dense_person.png)
+
+As is evident from the metrics, it is good at detecting large objects
+![Big objects day](readme_images/big_objects.png)
+
+In a nighttime setting, it misses many far away objects, but does well with traffic lights, possibly because the lights are more pronounced due to a lack of background light
+![Big Objects at Night](readme_images/night_big.png)
+![More big objects at night](readme_images/night_big2.png)
+
+# Conclusion: The model is effective at detecting large or nearby objects in its current state. To improve generalizability, future iterations must utilize a more balanced dataset and train for many more epochs.
