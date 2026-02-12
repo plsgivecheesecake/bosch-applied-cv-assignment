@@ -1,6 +1,8 @@
 # My submission for Bosch's Applied CV Coding Assignment
 [![Project Validation](https://github.com/plsgivecheesecake/bosch-applied-cv-assignment/actions/workflows/ci.yml/badge.svg)](https://github.com/plsgivecheesecake/bosch-applied-cv-assignment/actions/workflows/ci.yml)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+- PEP8 compliance checked using Ruff and Interrogate packages
+- Submitted within deadline. Final Commit: 11:45 PM IST.
 
 ## Setup
 Please make sure to do the following
